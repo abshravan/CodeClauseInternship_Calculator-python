@@ -27,31 +27,37 @@ def generate_password():
 root = tk.Tk()
 root.title("Random Password Generator")
 
-# Create and configure widgets
-length_label = tk.Label(root, text="Password Length:")
-length_label.pack()
 
-length_entry = tk.Entry(root)
-length_entry.pack()
+root.geometry("300x350")  # Set a fixed window size
+root.configure(bg="white")  # Set the background color to white
+
+# Create and configure widgets 
+font_style = ('Helvetica', 12)
+
+length_label = tk.Label(root, text="Password Length:", font=font_style, bg="white")
+length_label.pack(pady=10)
+
+length_entry = tk.Entry(root, font=font_style)
+length_entry.pack(pady=5)
 
 use_letters = tk.IntVar()
-letters_checkbox = tk.Checkbutton(root, text="Letters (A-Z, a-z)", variable=use_letters)
-letters_checkbox.pack()
+letters_checkbox = tk.Checkbutton(root, text="Letters (A-Z, a-z)", variable=use_letters, font=font_style, bg="white")
+letters_checkbox.pack(pady=5)
 
 use_numbers = tk.IntVar()
-numbers_checkbox = tk.Checkbutton(root, text="Numbers (0-9)", variable=use_numbers)
-numbers_checkbox.pack()
+numbers_checkbox = tk.Checkbutton(root, text="Numbers (0-9)", variable=use_numbers, font=font_style, bg="white")
+numbers_checkbox.pack(pady=5)
 
 use_special_characters = tk.IntVar()
-special_characters_checkbox = tk.Checkbutton(root, text="Special Characters (!@#$%^&*()_+)", variable=use_special_characters)
-special_characters_checkbox.pack()
+special_characters_checkbox = tk.Checkbutton(root, text="Special Characters (!@#$%^&*()_+)", variable=use_special_characters, font=font_style, bg="white")
+special_characters_checkbox.pack(pady=5)
 
-generate_button = tk.Button(root, text="Generate Password", command=generate_password)
-generate_button.pack()
+generate_button = tk.Button(root, text="Generate Password", command=generate_password, font=font_style, bg="blue", fg="white")
+generate_button.pack(pady=10)
 
 password_result = tk.StringVar()
-password_label = tk.Label(root, textvariable=password_result)
-password_label.pack()
+password_label = tk.Label(root, textvariable=password_result, font=font_style, bg="white")
+password_label.pack(pady=10)
 
 # Start the Tkinter main loop
 root.mainloop()
