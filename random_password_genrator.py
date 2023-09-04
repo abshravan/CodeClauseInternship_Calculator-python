@@ -8,7 +8,18 @@ def generate_password():
         password_result.set("Invalid length")
         return
 
-    characters = string.ascii_letters + string.digits + string.punctuation
+    characters = ""
+    if use_letters.get():
+        characters += string.ascii_letters
+    if use_numbers.get():
+        characters += string.digits
+    if use_special_characters.get():
+        characters += string.punctuation
+
+    if not characters:
+        password_result.set("Select at least one character type")
+        return
+
     password = ''.join(random.choice(characters) for _ in range(length))
     password_result.set(password)
 
@@ -22,6 +33,18 @@ length_label.pack()
 
 length_entry = tk.Entry(root)
 length_entry.pack()
+
+use_letters = tk.IntVar()
+letters_checkbox = tk.Checkbutton(root, text="Letters (A-Z, a-z)", variable=use_letters)
+letters_checkbox.pack()
+
+use_numbers = tk.IntVar()
+numbers_checkbox = tk.Checkbutton(root, text="Numbers (0-9)", variable=use_numbers)
+numbers_checkbox.pack()
+
+use_special_characters = tk.IntVar()
+special_characters_checkbox = tk.Checkbutton(root, text="Special Characters (!@#$%^&*()_+)", variable=use_special_characters)
+special_characters_checkbox.pack()
 
 generate_button = tk.Button(root, text="Generate Password", command=generate_password)
 generate_button.pack()
