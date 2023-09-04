@@ -2,7 +2,6 @@ import re
 
 def calculate(expression):
     try:
-        # Use regular expressions to ensure valid input
         expression = re.sub(r'[^0-9+\-*/() ]', '', expression)
         result = eval(expression)
         return result
