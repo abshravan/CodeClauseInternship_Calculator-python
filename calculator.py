@@ -41,8 +41,6 @@ for button in buttons:
         col_val = 0
         row_val += 1
 
-# Create a clear button
 tk.Button(root, text="Clear", padx=20, pady=20, font=("Arial", 20), command=clear_entry).grid(row=6, column=0, columnspan=4)
 
-# Run the GUI
 root.mainloop()
