@@ -1,46 +1,48 @@
-import re
 import tkinter as tk
 
-def calculate(expression):
+def evaluate_expression():
     try:
-        expression = re.sub(r'[^0-9+\-*/() ]', '', expression)
-        result = eval(expression)
-        return result
+        result.set(eval(entry.get()))
     except Exception as e:
-        return "Error: " + str(e)
+        result.set("Error")
 
-def calculate_button_click():
-    user_input = entry.get()
-    result = calculate(user_input)
-    result_label.config(text="Result: " + str(result))
-
-def clear_button_click():
+def clear_entry():
     entry.delete(0, tk.END)
-    result_label.config(text="Result:")
+    result.set("")
 
-def main():
-    root = tk.Tk()
-    root.title("Python Calculator")
+# Create the main window
+root = tk.Tk()
+root.title("Calculator")
 
-    frame = tk.Frame(root)
-    frame.pack(padx=10, pady=10)
+# Create an Entry widget for user input
+entry = tk.Entry(root, font=("Arial", 20))
+entry.grid(row=0, column=0, columnspan=4)
 
-    entry = tk.Entry(frame)
-    entry.pack(fill=tk.X)
+# Create a StringVar to display the result
+result = tk.StringVar()
+result.set("")
+result_label = tk.Label(root, textvariable=result, font=("Arial", 20))
+result_label.grid(row=1, column=0, columnspan=4)
 
-    calculate_button = tk.Button(frame, text="Calculate", command=calculate_button_click)
-    calculate_button.pack()
+# Create buttons for numbers and operations
+buttons = [
+    '7', '8', '9', '+',
+    '4', '5', '6', '-',
+    '1', '2', '3', '*',
+    '0', '.', '=', '/'
+]
 
-    clear_button = tk.Button(frame, text="Clear", command=clear_button_click)
-    clear_button.pack()
+row_val, col_val = 2, 0
 
-    result_label = tk.Label(frame, text="Result:")
-    result_label.pack()
+for button in buttons:
+    tk.Button(root, text=button, padx=20, pady=20, font=("Arial", 20), command=lambda b=button: entry.insert(tk.END, b) if b != '=' else evaluate_expression()).grid(row=row_val, column=col_val)
+    col_val += 1
+    if col_val > 3:
+        col_val = 0
+        row_val += 1
 
-    quit_button = tk.Button(frame, text="Quit", command=root.quit)
-    quit_button.pack()
+# Create a clear button
+tk.Button(root, text="Clear", padx=20, pady=20, font=("Arial", 20), command=clear_entry).grid(row=6, column=0, columnspan=4)
 
-    root.mainloop()
-
-if __name__ == "__main__":
-    main()
+# Run the GUI
+root.mainloop()
